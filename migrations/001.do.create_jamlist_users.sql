@@ -1,0 +1,7 @@
+CREATE TABLE users(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_name text NOT NULL UNIQUE,
+    user_email text NOT NULL UNIQUE,
+    password text NOT NULL UNIQUE,
+    date_joined TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
