@@ -1,4 +1,4 @@
-const { NODE_ENV } = require('../../src/config');
+const { NODE_ENV } = require('/../src/config');
 
 function errorHandler(error, req, res, next) {
 	let response;

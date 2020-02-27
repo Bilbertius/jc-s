@@ -2,10 +2,7 @@ const xss = require('xss');
 
 const SongsService = {
 	getAllSongs(db) {
-		return db
-			.select('*')
-			.from('jams')
-			
+		return db.select('*').from('jams')
 	},
 	insertSong(db, newSong) {
 		return db
@@ -44,7 +41,7 @@ const SongsService = {
 				artist: xss(song.artist),
 				album: xss(song.album),
 				venue: xss(song.venue),
-				date: xss(song.show_date)
+				date: new Date(song.show_date)
 			}
 		}
 }
