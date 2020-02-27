@@ -4,9 +4,9 @@ const AuthRouter = express.Router();
 const jsonBodyParser = express.json();
 
 AuthRouter
-	.route('/')
+	.route('/login')
 	.post(jsonBodyParser, (req, res, next) => {
-		console.log(req);
+	
 		const {user_name, password} = req.body;
 		const loginUser = {user_name, password};
 		
