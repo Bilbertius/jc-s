@@ -3,9 +3,7 @@ const AuthService = require('./auth-service');
 const AuthRouter = express.Router();
 const jsonBodyParser = express.json();
 
-AuthRouter
-	.route('/login')
-	.post(jsonBodyParser, (req, res, next) => {
+AuthRouter.post('/login', jsonBodyParser, (req, res, next) => {
 	
 		const {user_name, password} = req.body;
 		const loginUser = {user_name, password};
@@ -26,7 +24,7 @@ AuthRouter
 						error: `Incorrect username or password`
 					});
 				
-				return AuthService.comparePasswords(loginUser.password, User.password_hash)
+				return AuthService.comparePasswords(loginUser.password, User.password)
 					.then(match =>{
 						if(!match)
 							return res.status(400).json({
