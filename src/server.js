@@ -1,4 +1,4 @@
-const knex= require('knex');
+const knex = require('knex');
 const app = require('./app');
 const DATABASE_URL = require('./config');
 
