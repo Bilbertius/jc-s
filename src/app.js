@@ -13,7 +13,7 @@ const UserRouter = require('../src/users/UserRouter');
 const TagsRouter =  require('../src/tags/TagsRouter');
 
 const app = express();
-
+app.use(cors({origin: CLIENT_ORIGIN}))
 const morganSetting = NODE_ENV === 'production' ? 'tiny' : 'common';
 
 
@@ -26,15 +26,6 @@ app.use(helmet());
 app.use(express.json());
 
 
-app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", CLIENT_ORIGIN);
-	res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept"
-	);
-	next();
-});
 
 
 app.use('/api/auth', AuthRouter);
