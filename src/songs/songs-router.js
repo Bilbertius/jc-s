@@ -4,7 +4,7 @@ const logger = require('../logger');
 
 const SongsRouter = express.Router();
 const bodyParser = express.json();
-const db = req.app.get('db');
+
 
 
 SongsRouter
