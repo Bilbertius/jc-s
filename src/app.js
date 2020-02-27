@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
+
 const helmet = require('helmet');
 const { CLIENT_ORIGIN }= require('./config');
 const { NODE_ENV } = require('./config');
@@ -24,16 +24,19 @@ app.use(morgan(morganSetting));
 app.use(helmet());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-app.all('/*', function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", CLIENT_ORIGIN);
+	res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
 	next();
 });
 
 
-app.use(cors({origin : CLIENT_ORIGIN}));
 app.use('/api/auth', AuthRouter);
 app.use('/api/songs', SongsRouter);
 app.use('/api/users', UserRouter);

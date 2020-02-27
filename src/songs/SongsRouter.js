@@ -12,7 +12,7 @@ jsonBodyParser = express.json();
 
 SongsRouter
 	.route('/')
-	.get(jsonBodyParser, cors(), (req,res,next) => {
+	.get(jsonBodyParser, (req,res,next) => {
 		const db = req.app.get('db');
 		SongsService.getAllSongs(db)
 			.then(songs => {
