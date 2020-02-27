@@ -11,12 +11,11 @@ const errorHandler = require('../src/middleware/error_handler');
 const AuthRouter = require('./auth/auth-router');
 const SongsRouter = require('./songs/songs-router');
 const UserRouter = require('./users/users-router');
-const TagsRouter =  require('../src/tags/TagsRouter');
+
 
 const app = express();
 
 
-app.options('*', cors());
 const morganSetting = NODE_ENV === 'production' ? 'tiny' : 'common';
 app.use(morgan(morganSetting));
 

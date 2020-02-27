@@ -1,23 +1,23 @@
 const express = require('express')
 const UsersService = require('./users-service')
-const usersRouter = express.Router()
+const UsersRouter = express.Router()
 const jsonBodyParser = express.json()
 
-usersRouter
+UsersRouter
 	.post('/', jsonBodyParser, (req, res, next) => {
-		const { password, user_name, full_name } = req.body
+		const { user_name, password } = req.body;
 		
 		for (const field of ['full_name', 'user_name', 'password'])
 			if (!req.body[field])
 				return res.status(400).json({
 					error: `Missing '${field}' in request body`
 				})
-		const passwordError = UsersService.validatePassword(password)
+		const passwordError = UsersService.validatePassword(password);
 		
 		if (passwordError)
-			return res.status(400).json({ error: passwordError })
+			return res.status(400).json({ error: passwordError });
 		
-		const knexInstance = req.app.get('db')
+	
 		
 		UsersService.hasUserWithUserName(
 			req.app.get('db'),
@@ -31,8 +31,7 @@ usersRouter
 						const newUser = {
 							user_name,
 							password: hashedPassword,
-							full_name,
-							date_created: 'now()'
+							date_joined: 'now()'
 						}
 						return UsersService.insertUser(knexInstance, newUser)
 							.then(user => {
@@ -45,4 +44,4 @@ usersRouter
 			.catch(next)
 	})
 
-module.exports = usersRouter
+module.exports = UsersRouter;
