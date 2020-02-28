@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const validateBearerToken = require('./middleware/validate-bearer-token')
+
 const { CLIENT_ORIGIN }= require('./config');
 const { NODE_ENV } = require('./config');
 const errorHandler = require('../src/middleware/error_handler');
@@ -18,12 +18,11 @@ const app = express();
 
 const morganSetting = NODE_ENV === 'production' ? 'tiny' : 'common';
 app.use(morgan(morganSetting));
-
-app.use(cors({origin: CLIENT_ORIGIN}));
-app.options('*', cors());
 app.use(helmet());
+app.use(cors());
+app.options('*', cors());
 
-app.use(validateBearerToken);
+
 
 
 app.use('/api/auth', AuthRouter);
