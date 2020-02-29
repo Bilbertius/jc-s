@@ -14,19 +14,23 @@ const SongsService = {
 			})
 	},
 	getById(db, id) {
-		return db.from('jams').select('*').where('id', id).first()
+		return db
+			.from('jams')
+			.select('*')
+			.where({ id })
+			.first()
 	},
 	deleteSong(db, id) {
 		return db
 			.from('jams')
-			.select('*')
-			.where( 'id' , id)
+			.where({ id })
 			.delete()
 	},
 	updateSong(db, id, newSongFields) {
-			return db('jams')
-				.where({ id })
-				.update(newSongFields)
+		return db
+			.from('jams')
+			.where( id )
+			.update(newSongFields)
 	},
 	
 	serializeSongs(songs) {
