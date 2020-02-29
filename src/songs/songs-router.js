@@ -1,6 +1,5 @@
 const express = require ('express');
 const SongsService = require ('./songs-service');
-const logger = require('../logger');
 
 const SongsRouter = express.Router();
 const bodyParser = express.json();
@@ -23,6 +22,14 @@ SongsRouter
 		const { song, artist, album, venue, show_date } = req.body;
 		const newSong = { song, artist, album, venue, show_date };
 		
+		for (const [key, value] of Object.entries(newSong)) {
+			if (value === null ) {
+				return res.json({
+					error: { message : `Missing ${key} in request body`}
+				})
+			}
+		}
+		
 		SongsService.insertSong(db, newSong)
 			
 			.then(song => {
@@ -35,13 +42,13 @@ SongsRouter
 });
 
 SongsRouter
-	.route('/songs/:song_id')
+	.route('/:song_id')
 	.all((req,res,next) => {
 		const db = req.app.get('db');
-		const {song_id} = req.params;
-		SongsService.getById(db, song_id).then(song => {
+		
+		SongsService.getById(db, req.params.song_id)
+			.then(song => {
 			if(!song) {
-			logger.error(`Song with id of ${song_id} not found`)
 			return res.status(404).json({
 				error: {message: 'Song not found'}
 			})
@@ -51,18 +58,20 @@ SongsRouter
 			})
 			.catch(next)
 	})
-	.get((req,res) => {
-		res.json(SongsService.serializeSong(res.song));
+	
+	.get((req,res,next) => {
+		res.json(SongsService.serializeSong(res.song))
 	})
+	
 	.delete((req,res,next) => {
 		const db = req.app.get('db');
-		const { song_id } = req.params;
-		SongsService.deleteSong(db, song_id).then(numRowsAffected => {
-			logger.info(`Card with id ${bookmark_id} deleted.`)
-			res.status(204).end()
+		
+		SongsService.deleteSong(db, req.params.song_id)
+			.then(() => {
+				res.status(204).end()
 			})
 			.catch(next)
-	})
+	});
 
 
 
