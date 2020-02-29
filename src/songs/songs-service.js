@@ -41,7 +41,7 @@ const SongsService = {
 				artist: xss(song.artist),
 				album: xss(song.album),
 				venue: xss(song.venue),
-				date: new Date(song.show_date)
+				date: song.show_date
 			}
 		}
 }

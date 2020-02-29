@@ -1,6 +1,6 @@
 const express = require ('express');
 const SongsService = require ('./songs-service');
-
+const path = require('path');
 const SongsRouter = express.Router();
 const bodyParser = express.json();
 
@@ -35,8 +35,8 @@ SongsRouter
 			.then(song => {
 				res
 					.status(201)
-					.location(`/songs/${song.id}`)
-					.json(SongsService.serializeSong(newSong))
+					.location(path.posix.join(req.originalUrl, `${song.id}`))
+					.json(SongsService.serializeSong(song))
 			})
 			.catch(next);
 });
@@ -71,7 +71,35 @@ SongsRouter
 				res.status(204).end()
 			})
 			.catch(next)
+	})
+	.patch(bodyParser, (req,ers,next) => {
+		const { song, artist, album, venue, show_date } = req.body;
+		const songToUpdate = { song, artist, album, venue, show_date };
+		
+		const numberOfValues = Object.values(songToUpdate).filter(Boolean).length;
+		if (numberOfValues === 0) {
+			return res.status(400).json({
+				error: {
+					message: `Request body must content either 'song', 'artist', 'album', 'venue' or 'date'`
+				}
+			})
+		}
+		
+		const error =  getSongValidiationError(songToUpdate);
+		
+		if (error) return res.status(400).send(error);
+		
+		SongsService.updateSong(
+			req.app.get('db'),
+			req.params.song_id,
+			songToUpdate
+		)
+			.then(res => {
+				res.status(204).end()
+			})
+			.catch(next)
 	});
+
 
 
 
