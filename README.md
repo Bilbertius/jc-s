@@ -6,4 +6,4 @@ Node, ExpressJS, PostgreSQL
 
 ## Links
 - [Live Demo]  (https://jamclouds.now.sh)
-- [Jamcloud client repo] (https://www.github.com/bilbertius/jc-s) 
+- [Jamcloud client repo] (https://www.github.com/bilbertius/jamcloud-client) 
