@@ -1,18 +1,18 @@
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
-const app = require('../app/app');
+const app = require('../src/app');
 const helpers = require('./test-helpers');
 
 describe.only('auth endpoints', function() {
 	let db;
 	
-	const  { testUsers } = helpers.makeUsersArray();
+	const   testUsers  = helpers.makeUsersArray();
 	const testUser = testUsers[0];
 	
-	beforeAll('make knex instance', () => {
+	beforeEach('make knex instance', () => {
 		db = knex({
 			client: 'pg',
-			connection: process.env.TEST_DB_URL,
+			connection: process.env.TEST_DATABASE_URL,
 		})
 		app.set('db', db)
 	})

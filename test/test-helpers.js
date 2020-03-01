@@ -7,14 +7,14 @@ function makeUsersArray() {
 			id: 1,
 			user_name: 'JohnBGood',
 			user_email: 'John@b.good',
-			password_hash: null,
+			password: null,
 			date_joined: new Date()
 		},
 		{
 			id: 2,
 			user_name: 'AwesomeUserName',
 			user_email: 'iamawesome@cool.com',
-			password_hash: null,
+			password: null,
 			date_joined: new Date()
 		},
 		{
@@ -22,7 +22,7 @@ function makeUsersArray() {
 			user_name: 'JohnBGoodJr',
 			user_email: 'Johnjr@good.b',
 			password_hash: null,
-			date_joined: new Date()
+			date: new Date()
 		},
 		
 	]
@@ -111,7 +111,7 @@ function cleanTables(db) {
 	return db.raw(
 		`TRUNCATE
       jams,
-      users,f
+      users,
       RESTART IDENTITY CASCADE`
 	)
 }
