@@ -15,7 +15,7 @@ const UsersService = {
 			.insert(newUser)
 			.into('users')
 			.returning('*')
-			.then(([user]) => user)
+			.then((user) => user[0])
 	},
 	validateEmail(email) {
 		const VALID_EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
