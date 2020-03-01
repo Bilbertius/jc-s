@@ -49,9 +49,9 @@ SongsRouter
 		SongsService.getById(db, req.params.song_id)
 			.then(song => {
 			if(!song) {
-			return res.status(404).json({
-				error: {message: 'Song not found'}
-			})
+				return res.status(404).json({
+					error: {message: 'Song not found'}
+				})
 			}
 				res.song = song;
 				next()
@@ -59,7 +59,7 @@ SongsRouter
 			.catch(next)
 	})
 	
-	.get((req,res,next) => {
+	.get((req,res) => {
 		res.json(SongsService.serializeSong(res.song))
 	})
 	

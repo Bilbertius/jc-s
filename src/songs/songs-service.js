@@ -21,8 +21,7 @@ const SongsService = {
 			.first()
 	},
 	deleteSong(db, id) {
-		return db
-			.from('jams')
+		return db('jams')
 			.where({ id })
 			.delete()
 	},
