@@ -65,7 +65,7 @@ SongsRouter
 	
 	.delete((req,res,next) => {
 		const db = req.app.get('db');
-		const songID = req.params;
+		const songID = req.params.songID;
 		
 	
 		SongsService.deleteSong(db, songID)
@@ -88,9 +88,8 @@ SongsRouter
 			})
 		}
 		
-		const error =  getSongValidiationError(songToUpdate);
-		
-		if (error) return res.status(400).send(error);
+
+
 		
 		SongsService.updateSong(
 			req.app.get('db'),
