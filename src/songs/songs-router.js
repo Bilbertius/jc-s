@@ -65,18 +65,16 @@ SongsRouter
 	
 	.delete((req,res,next) => {
 		const db = req.app.get('db');
-		const songID = req.body;
+		const songID = req.params;
 		
+	
 		SongsService.deleteSong(db, songID)
-			.then((song) => {
-				if(!song) {
-					res.status(204).end();
-				}
-				res.songID = song.id;
-					next()
+			.then(numRowsAffected => {
+				res.status(204).end()
 			})
-			.catch(next)
+			.catch(next);
 	})
+	
 	.patch(bodyParser, (req,ers,next) => {
 		const { song, artist, album, venue, show_date } = req.body;
 		const songToUpdate = { song, artist, album, venue, show_date };
@@ -96,7 +94,7 @@ SongsRouter
 		
 		SongsService.updateSong(
 			req.app.get('db'),
-			req.params.songID,
+			req.params.song_id,
 			songToUpdate
 		)
 			.then(res => {
