@@ -3,9 +3,12 @@ The jamcloud-api uses ExpressJS to
 connect the Jamcloud client with the
  Jamcloud PostgreSQL database allowing users
   to create an account so that they can add to
-   the growing list of jams. 
-   In the future the database will also store ratings, 
-   notes, and personalized lists linked to users.
+   the growing list of jams.
+    
+Future plans include functionality to allow users to
+ rate, takes notes on, and rank jams as well as create
+  playlists that can be shared amongst all users, or kept 
+  private .
 
 
 ##Links 
@@ -18,7 +21,7 @@ connect the Jamcloud client with the
 
 ## Tech Stack 
 ### Front End:
-
+    
 - React
 
 ### Back End: 
@@ -27,7 +30,7 @@ connect the Jamcloud client with the
 - ExpressJS
 - PostgreSQL
 
-##Endpoints 
+##API Endpoints 
 
 | Method | Path               | Description |
 |--------| -------------------| -------------------|
@@ -35,7 +38,7 @@ connect the Jamcloud client with the
 | POST   | /users/            | create a new user |
 | GET    | /users/songs/${id} | get all songs posted by a user|
 | DELETE | /songs             | delete a song from the users list |
-| PATCH  | /songs             | update a listed song | 
+| PATCH  | /songs             | update a listed song (upcoming)| 
 
 
 ## Screenshots 

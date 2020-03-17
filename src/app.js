@@ -19,12 +19,17 @@ const app = express();
 const morganSetting = NODE_ENV === 'production' ? 'tiny' : 'common';
 app.use(morgan(morganSetting));
 app.use(helmet());
+/*
+* Enable cross origin resource sharing including preflight checks via an options request
+* */
 app.use(cors());
 app.options('*', cors());
 
 
 
-
+/*
+* Instruct the server to direct appropriate requests to their respective routes
+* */
 app.use('/api/auth', AuthRouter);
 app.use('/api/songs', SongsRouter);
 app.use('/api/users', UserRouter);

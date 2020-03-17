@@ -4,7 +4,9 @@ const UsersRouter = express.Router();
 const jsonBodyParser = express.json();
 
 
-
+/*
+* User router which is used to safely handle user information during sign up
+* */
 
 
 UsersRouter.route('/')
